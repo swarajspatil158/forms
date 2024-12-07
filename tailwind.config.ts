@@ -32,6 +32,10 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
+			placeholder: {
+				DEFAULT: 'hsl(var(--placeholder))',
+				foreground: 'hsl(var(--placeholder-foreground))'
+			},
   			accent: {
   				DEFAULT: 'hsl(var(--accent))',
   				foreground: 'hsl(var(--accent-foreground))'

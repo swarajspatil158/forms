@@ -11,16 +11,18 @@ import RadioIcon from "@/components/Icons/RadioIcon";
 import ShortAnswerIcon from "@/components/Icons/ShortAnswerIcon";
 import UrlIcon from "@/components/Icons/UrlIcon";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Home() {
   return (
    <div className="relative bg-background">
-    <div className="flex flex-wrap transition-colors ease-out duration-75 items-center justify-center max-w-3xl mx-3 md:mx-auto gap-2 my-7 p-4 border rounded-2xl hover:bg-gray-50">
+    <div className="flex flex-wrap transition-colors ease-out duration-75 items-center justify-center max-w-xl mx-3 md:mx-auto gap-2 my-7 p-4 border rounded-2xl hover:bg-gray-50">
       <Button variant="default" size="sm">Default and size sm</Button> 
       <Button variant="outline" size="sm">outline and size sm</Button> 
       <Button variant="disabled" size="sm">disabled and size sm</Button> 
     </div>
-    <div className="flex flex-wrap transition-colors ease-out duration-75 items-center justify-center max-w-3xl mx-3 md:mx-auto gap-2 my-7 p-4 border rounded-2xl hover:bg-gray-50">
+    <div className="flex flex-wrap transition-colors ease-out duration-75 items-center justify-center max-w-xl mx-3 md:mx-auto gap-2 my-7 p-4 border rounded-2xl hover:bg-gray-50">
       <ArrowUpRightIcon   strokeWidth={2} className="text-primary h-5 w-5" />
       <CalendarIcon   strokeWidth={2} className="text-primary h-5 w-5" />
       <CheckIcon   strokeWidth={2} className="text-primary h-5 w-5" />
@@ -34,6 +36,33 @@ export default function Home() {
       <ShortAnswerIcon   strokeWidth={2} className="text-primary h-5 w-5" />
       <UrlIcon   strokeWidth={2} className="text-primary h-5 w-5" />
     </div>
+    <div className="transition-colors ease-out duration-75 items-center justify-center max-w-xl mx-3 md:mx-auto gap-2 my-7 p-4 border rounded-2xl ">
+      <div className="flex gap-1">
+        <div className="flex-grow">
+          <div className="text-muted-foreground font-semibold">Write a question</div>
+          <div className="text-muted-foreground font-normal text-xs">Write a help text or caption(leave empty if not needed)</div>
+        </div>
+        <div className="flex-shrink flex gap-3 text-muted-foreground">
+          <Button size='icon' variant='ghost' className="flex gap-0 items-center justify-center "><ShortAnswerIcon /> <ChevDownIcon /></Button>
+          <Button size='icon' variant='ghost' className=""><DragDropVerticalIcon strokeWidth={2} /></Button>
+        </div>
+      </div>
+      <Input type="text" placeholder="Type your response here." className="mt-2.5" />
+    </div>
+    <div className="transition-colors ease-out duration-75 items-center justify-center max-w-xl mx-3 md:mx-auto gap-2 my-7 p-4 border rounded-2xl ">
+      <div className="flex gap-1">
+        <div className="flex-grow">
+          <div className="text-muted-foreground font-semibold">Write a question</div>
+          <div className="text-muted-foreground font-normal text-xs">Write a help text or caption(leave empty if not needed)</div>
+        </div>
+        <div className="flex-shrink flex gap-3 text-muted-foreground">
+          <Button size='icon' variant='ghost' className="flex gap-0 items-center justify-center "><LongAnswerIcon /> <ChevDownIcon /></Button>
+          <Button size='icon' variant='ghost' className=""><DragDropVerticalIcon strokeWidth={2} /></Button>
+        </div>
+      </div>
+      <Textarea placeholder="Type your response here." className="resize-none mt-2.5" />
+    </div>
+    
    </div>
   );
 }

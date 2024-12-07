@@ -21,7 +21,7 @@ const LongAnswerIcon: React.FC<IconProps> = ({
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={strokeWidth}
+      strokeWidth={strokeWidth + .1}
       d="M3.14 5h8.333M3.14 10h15M3.14 15h15"
     ></path>
   </svg>
