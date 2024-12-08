@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  forms     Form[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Form {
+  id           String        @id @default(uuid())
+  title        String
+  description  String?
+  isPublished  Boolean       @default(false)
+  isDraft      Boolean       @default(true)
+  isDeleted    Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  submissions  Int           @default(0)
+  maxSubmissions Int?        // Optional submission limit
+  
+  // Relations
+  userId       String
+  user         User          @relation(fields: [userId], references: [id])
+  questions    Question[]
+  submissionList  Submission[]
+
+  @@index([userId])
+}
+
+// Unified Question model with discriminator
+model Question {
+  id          String    @id @default(uuid())
+  type        QuestionType
+  title       String
+  helpText    String?
+  required    Boolean   @default(false)
+  order       Int
+  isDeleted   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Specific fields for different question types
+  options     QuestionOption[]  // For single select questions
+  minLength   Int?             // For text questions
+  maxLength   Int?             // For text questions
+  minValue    Float?           // For number questions
+  maxValue    Float?           // For number questions
+  urlPattern  String?          // For URL questions
+  dateFormat  String?          // For date questions (default: DD-MM-YYYY)
+  minDate     String?          // For date questions (in DD-MM-YYYY format)
+  maxDate     String?          // For date questions (in DD-MM-YYYY format)
+  
+  // Relations
+  formId      String
+  form        Form       @relation(fields: [formId], references: [id])
+  answers     Answer[]
+
+  @@index([formId])
+}
+
+model QuestionOption {
+  id          String    @id @default(uuid())
+  value       String
+  label       String
+  order       Int
+  isDeleted   Boolean   @default(false)
+  
+  // Relations
+  questionId  String
+  question    Question  @relation(fields: [questionId], references: [id])
+  answers     Answer[]
+
+  @@index([questionId])
+}
+
+model Submission {
+  id          String    @id @default(uuid())
+  submittedAt DateTime  @default(now())
+  isDeleted   Boolean   @default(false)
+  
+  // Relations
+  formId      String
+  form        Form      @relation(fields: [formId], references: [id])
+  answers     Answer[]
+
+  @@index([formId])
+}
+
+model Answer {
+  id          String    @id @default(uuid())
+  value       String    // Store all answers as strings, parse based on question type
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  questionId  String
+  question    Question  @relation(fields: [questionId], references: [id])
+  submissionId String
+  submission  Submission @relation(fields: [submissionId], references: [id])
+  optionId    String?   // For single select questions
+  option      QuestionOption? @relation(fields: [optionId], references: [id])
+
+  @@index([questionId])
+  @@index([submissionId])
+  @@index([optionId])
+}
+
+enum QuestionType {
+  SHORT_ANSWER
+  LONG_ANSWER
+  SINGLE_SELECT
+  NUMBER
+  URL
+  DATE
+}
