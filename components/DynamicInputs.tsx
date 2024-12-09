@@ -11,7 +11,7 @@ const DynamicInputs = () => {
     setInputs([...inputs, '']);
   };
 
-  const handleInputChange = (index, value) => {
+  const handleInputChange = (index:number, value: string) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
