@@ -33,11 +33,9 @@ const QuestionInputMap: Record<QuestionType, React.FC<{ className?: string }>> =
       className={`resize-none ${className}`}
     />
   ),
-  radio: ({ className }) => (
+  radio: ({  }) => (
     <DynamicInputs
-      type="text"
-      placeholder="option"
-      className={className}
+      
     />
   ),
   number: ({ className }) => (

@@ -29,7 +29,7 @@ const FormActions: React.FC<FormActionsProps> = ({
         description: "Form saved as draft",
         variant: "default",
       });
-    //   router.push('/forms');
+    //   router.push('/');
     } catch (err) {
       console.error(err);
       toast({
@@ -48,7 +48,7 @@ const FormActions: React.FC<FormActionsProps> = ({
         description: "Form published successfully",
         variant: "default",
       });
-      router.push('/forms');
+      router.push('/');
     } catch (err) {
       console.error(err);
       toast({
