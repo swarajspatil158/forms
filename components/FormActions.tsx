@@ -65,7 +65,7 @@ const FormActions: React.FC<FormActionsProps> = ({
         variant="outline"
         size="sm"
         onClick={handleDraftSave}
-        disabled={isLoading}
+        disabled={true || isLoading}
         className="flex items-center gap-2"
       >
         <DraftIcon />
