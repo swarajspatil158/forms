@@ -99,9 +99,9 @@ export default function FormsDashboard() {
   }
 
   return (
-    <div className="container mx-auto py-10 max-w-[640px]">
+    <div className="container mx-auto py-10 px-2 max-w-[640px]">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Forms Dashboard</h1>
+        <div className="text-base md:text-2xl font-semibold">All Forms </div>
         <Button asChild>
           <Link href="/forms/create">Create New Form</Link>
         </Button>
