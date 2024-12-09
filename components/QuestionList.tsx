@@ -106,9 +106,9 @@ const QuestionList: React.FC<QuestionListProps> = ({ onQuestionAdd }) => {
   };
 
   return (
-    <div className="space-y-4 flex flex-col align-start mb-[40vh]">
+    <div className="space-y-1 flex flex-col align-start mb-[40vh] my-4 mx-auto max-w-[592px]">
       {questions.map((question) => (
-        <div key={question.id} className="relative group">
+        <div key={question.id} className="relative group ">
           <QuestionField 
             selectedType={question.type}
             onTypeChange={(newType) => handleTypeChange(question.id, newType)}
@@ -120,11 +120,11 @@ const QuestionList: React.FC<QuestionListProps> = ({ onQuestionAdd }) => {
             {renderQuestionInput(question.type)}
             <Button
               variant="ghost"
-              size="sm"
-              className="absolute -right-2 -top-2 opacity-0 group-hover:opacity-100 transition-opacity"
+              size="icon"
+              className="absolute -right-1 -top-0  opacity-0   group-hover:opacity-100 transition-all delay-75 w-6"
               onClick={() => removeQuestion(question.id)}
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4 text-muted-foreground" />
             </Button>
           </QuestionField>
         </div>
