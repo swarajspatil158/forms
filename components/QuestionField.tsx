@@ -43,13 +43,13 @@ const QuestionField: React.FC<QuestionFieldProps> = ({
             value={question}
             onChange={(e) => handleQuestionChange(e.target.value)}
             placeholder="Write a question"
-            className="text-muted-foreground font-semibold text-sm"
+            className="font-semibold text-sm"
           />
           <QuestionInput
             value={helpText}
             onChange={(e) => handleHelpTextChange(e.target.value)}
             placeholder="Write a help text or caption(leave empty if not needed)"
-            className="text-muted-foreground font-normal text-xs md:text-xs"
+            className="font-normal text-xs md:text-xs"
           />
         </div>
         <div className="flex-shrink flex gap-3 text-muted-foreground">

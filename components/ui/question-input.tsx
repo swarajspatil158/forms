@@ -7,7 +7,7 @@ const QuestionInput = React.forwardRef<HTMLInputElement, React.ComponentProps<"i
       <input
         type={type}
         className={cn(
-          "flex h-5 w-full text-base text-muted-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:sm",
+          "flex h-5 w-full text-base  placeholder:text-muted-foreground focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:sm",
           className
         )}
         ref={ref}
