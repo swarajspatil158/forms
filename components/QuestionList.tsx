@@ -7,10 +7,12 @@ import QuestionField from "@/components/QuestionField";
 import { Button } from "@/components/ui/button";
 import PlusIcon from "@/components/Icons/PlusIcon";
 import { X } from "lucide-react";
+import FormattedDateInput from "./ui/formatted-date-input";
+import DynamicInputs from "./DynamicInputs";
 
 interface Question {
   id: string;
-  type: 'input' | 'textarea';
+  type: 'input' | 'textarea' | 'radio' | 'number' | 'url' | 'date';
 }
 
 interface QuestionListProps {
@@ -20,7 +22,11 @@ interface QuestionListProps {
 const QuestionList: React.FC<QuestionListProps> = ({ onQuestionAdd }) => {
   const [questions, setQuestions] = React.useState<Question[]>([
     { id: '1', type: 'input' },
-    { id: '2', type: 'textarea' }
+    { id: '2', type: 'textarea' },
+    { id: '3', type: 'radio' },
+    { id: '4', type: 'number' },
+    { id: '5', type: 'url' },
+    { id: '6', type: 'date' },
   ]);
 
   const addQuestion = () => {
@@ -51,7 +57,27 @@ const QuestionList: React.FC<QuestionListProps> = ({ onQuestionAdd }) => {
                 placeholder="Type your response here."
                 className="mt-2.5"
               />
-            ) : (
+            ) : question.type === 'number' ? (
+              <Input
+                type="number"
+                placeholder=""
+                className="mt-2.5"
+              />
+            ) : question.type === 'date' ? (
+              <FormattedDateInput
+                type="text"
+                placeholder="DD-MM-YY"
+                className="mt-2.5"
+              />
+            ) : question.type === 'url' ? (
+              <Input
+                type="text"
+                placeholder="https://www.example.com"
+                className="mt-2.5"
+              />
+            ) : question.type === 'radio' ? (
+              <DynamicInputs type="text" placeholder="option" className="mt-2.5"/>
+            ): (
               <Textarea
                 placeholder="Type your response here."
                 className="resize-none mt-2.5"
