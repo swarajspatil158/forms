@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,7 +17,63 @@ import HashtagIcon from "@/components/Icons/HashtagIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import ChevDownIcon from "@/components/Icons/ChevDownIcon";
 
-const QuestionDropdown = () => {
+type QuestionType = 'input' | 'textarea' | 'radio' | 'number' | 'url' | 'date';
+
+interface QuestionTypeConfig {
+  type: QuestionType;
+  label: string;
+  icon: React.FC<{ className?: string }>;
+}
+
+interface QuestionDropdownProps {
+  selectedType?: QuestionType;
+  onTypeChange?: (type: QuestionType) => void;
+}
+
+const questionTypes: QuestionTypeConfig[] = [
+  {
+    type: 'input',
+    label: 'Short Answer',
+    icon: ShortAnswerIcon,
+  },
+  {
+    type: 'textarea',
+    label: 'Long Answer',
+    icon: LongAnswerIcon,
+  },
+  {
+    type: 'radio',
+    label: 'Single Select',
+    icon: RadioIcon,
+  },
+  {
+    type: 'url',
+    label: 'URL',
+    icon: UrlIcon,
+  },
+  {
+    type: 'number',
+    label: 'Number',
+    icon: HashtagIcon,
+  },
+  {
+    type: 'date',
+    label: 'Date',
+    icon: CalendarIcon,
+  },
+];
+
+const QuestionDropdown: React.FC<QuestionDropdownProps> = ({ 
+  selectedType = 'input',
+  onTypeChange 
+}) => {
+  const selectedConfig = questionTypes.find(qt => qt.type === selectedType) || questionTypes[0];
+  const SelectedIcon = selectedConfig.icon;
+
+  const handleTypeSelect = (type: QuestionType) => {
+    onTypeChange?.(type);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="relative">
@@ -26,7 +82,7 @@ const QuestionDropdown = () => {
           size="icon"
           className="flex items-center justify-center gap-0 cursor-pointer"
         >
-          <ShortAnswerIcon className="h-5 w-5" />
+          <SelectedIcon className="h-5 w-5" />
           <ChevDownIcon />
         </Button>
       </DropdownMenuTrigger>
@@ -35,24 +91,15 @@ const QuestionDropdown = () => {
           Input Types
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium">
-          <ShortAnswerIcon /> Short Answer
-        </DropdownMenuItem>
-        <DropdownMenuItem className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium">
-          <LongAnswerIcon /> Long Answer
-        </DropdownMenuItem>
-        <DropdownMenuItem className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium">
-          <RadioIcon /> Single Select
-        </DropdownMenuItem>
-        <DropdownMenuItem className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium">
-          <UrlIcon /> URL
-        </DropdownMenuItem>
-        <DropdownMenuItem className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium">
-          <HashtagIcon /> Number
-        </DropdownMenuItem>
-        <DropdownMenuItem className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium">
-          <CalendarIcon /> Date
-        </DropdownMenuItem>
+        {questionTypes.map(({ type, label, icon: Icon }) => (
+          <DropdownMenuItem
+            key={type}
+            className="w-[150px] md:w-[300px] text-start px-3 py-2 cursor-pointer text-sm font-medium"
+            onClick={() => handleTypeSelect(type)}
+          >
+            <Icon className="mr-2" /> {label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
