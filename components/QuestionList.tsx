@@ -6,9 +6,7 @@ import { X } from "lucide-react";
 import FormattedDateInput from "./ui/formatted-date-input";
 import DynamicInputs from "./DynamicInputs";
 import QuestionField from "@/components/QuestionField";
-import PlusIcon from "@/components/Icons/PlusIcon";
-
-type QuestionType = 'input' | 'textarea' | 'radio' | 'number' | 'url' | 'date';
+import AddQuestionDropdown, { QuestionType } from "@/components/AddQuestionDropdown";
 
 interface Question {
   id: string;
@@ -66,14 +64,12 @@ const QuestionInputMap: Record<QuestionType, React.FC<{ className?: string }>> =
 };
 
 const QuestionList: React.FC<QuestionListProps> = ({ onQuestionAdd }) => {
-  const [questions, setQuestions] = React.useState<Question[]>([
-   
-  ]);
+  const [questions, setQuestions] = React.useState<Question[]>([]);
 
-  const addQuestion = () => {
+  const addQuestion = (type: QuestionType) => {
     const newQuestion: Question = {
       id: Math.random().toString(36).substring(7),
-      type: 'input'
+      type
     };
     setQuestions([...questions, newQuestion]);
     
@@ -134,14 +130,7 @@ const QuestionList: React.FC<QuestionListProps> = ({ onQuestionAdd }) => {
         </div>
       ))}
 
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={addQuestion}
-        className="mx-auto flex gap-0 items-center justify-center"
-      >
-        <PlusIcon className="mr-2" /> Add Question
-      </Button>
+      <AddQuestionDropdown onAddQuestion={addQuestion} />
     </div>
   );
 };
